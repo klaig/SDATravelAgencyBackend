@@ -14,6 +14,6 @@ public class Continent {
     private Long id;
     @Enumerated(EnumType.STRING)
     private ContinentType continentType;
-    @OneToMany(mappedBy = "continent")
-    private Set<Country> countries;
+//    @OneToMany(mappedBy = "continent")
+//    private Set<Country> countries;
 }

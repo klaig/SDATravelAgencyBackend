@@ -15,8 +15,8 @@ public class City {
     private Long id;
     @Enumerated(EnumType.STRING)
     private CityType cityType;
-    @ManyToOne
-    @JoinColumn(name="countryId", nullable = false)
-    private Country country;
+//    @ManyToOne
+//    @JoinColumn(name="countryId", nullable = false)
+//    private Country country;
 
 }

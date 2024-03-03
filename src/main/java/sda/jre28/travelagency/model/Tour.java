@@ -6,8 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @Entity
@@ -21,10 +20,9 @@ public class Tour {
     private Long id;
     @Enumerated(EnumType.STRING)
     private CityType destination;
-    private Date departureDate;
-    private Date returnDate;
+    private LocalDate departureDate;
+    private LocalDate returnDate;
     private Integer length;
-    private String type;
     private Integer adultPrice;
     private Integer childPrice;
     private boolean promoted;
@@ -34,13 +32,12 @@ public class Tour {
     }
 
 
-    public Tour(Long id, CityType destination, Date departureDate, Date returnDate, Integer length, String type, Integer adultPrice, Integer childPrice, boolean promoted, Integer availableSeats) {
+    public Tour(Long id, CityType destination, LocalDate departureDate, LocalDate returnDate, Integer length, Integer adultPrice, Integer childPrice, boolean promoted, Integer availableSeats) {
         this.id = id;
         this.destination = destination;
         this.departureDate = departureDate;
         this.returnDate = returnDate;
         this.length = length;
-        this.type = type;
         this.adultPrice = adultPrice;
         this.childPrice = childPrice;
         this.promoted = promoted;
