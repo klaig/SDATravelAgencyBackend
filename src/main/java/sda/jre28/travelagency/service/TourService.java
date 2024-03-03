@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import sda.jre28.travelagency.model.Tour;
 import sda.jre28.travelagency.repository.TourRepository;
 
+import java.util.List;
+
 @Service
 public class TourService {
     private final TourRepository tourRepository;
@@ -29,5 +31,13 @@ public class TourService {
 
             tourRepository.save(existingTour);
         }
+    }
+
+    public void deleteTour(Long Id) {
+        tourRepository.deleteById(Id);
+    }
+
+    public List<Tour> findAllTours() {
+        return tourRepository.findAll();
     }
 }
