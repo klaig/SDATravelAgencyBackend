@@ -6,9 +6,9 @@ import lombok.Getter;
 
 
 @Entity
-@Table(name = "client")
+@Table(name = "user")
 @Getter
-public class Client {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

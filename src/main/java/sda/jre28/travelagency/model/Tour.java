@@ -23,8 +23,8 @@ public class Tour {
     private LocalDate departureDate;
     private LocalDate returnDate;
     private Integer length;
-    private Integer adultPrice;
-    private Integer childPrice;
+    private double adultPrice;
+    private double childPrice;
     private boolean promoted;
     private Integer availableSeats;
 
@@ -32,7 +32,7 @@ public class Tour {
     }
 
 
-    public Tour(Long id, CityType destination, LocalDate departureDate, LocalDate returnDate, Integer length, Integer adultPrice, Integer childPrice, boolean promoted, Integer availableSeats) {
+    public Tour(Long id, CityType destination, LocalDate departureDate, LocalDate returnDate, Integer length, double adultPrice, double childPrice, boolean promoted, Integer availableSeats) {
         this.id = id;
         this.destination = destination;
         this.departureDate = departureDate;
@@ -43,4 +43,5 @@ public class Tour {
         this.promoted = promoted;
         this.availableSeats = availableSeats;
     }
+
 }

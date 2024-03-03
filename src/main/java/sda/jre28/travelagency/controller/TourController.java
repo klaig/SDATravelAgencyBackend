@@ -1,11 +1,10 @@
 package sda.jre28.travelagency.controller;
 
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
+import sda.jre28.travelagency.model.CityType;
 import sda.jre28.travelagency.model.Tour;
 import sda.jre28.travelagency.service.TourService;
-
 import java.util.List;
 
 
@@ -38,5 +37,10 @@ public class TourController {
     @GetMapping(path = "/tours")
     public List<Tour> findAllTours() {
         return tourService.findAllTours();
+    }
+
+    @GetMapping(path = "/tours/city")
+    public List<Tour> findAllByCity(@RequestParam("city") String cityType) {
+        return tourService.findAllByDestination(CityType.valueOf(cityType.toUpperCase()));
     }
 }

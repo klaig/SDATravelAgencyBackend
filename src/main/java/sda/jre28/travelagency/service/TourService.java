@@ -1,6 +1,7 @@
 package sda.jre28.travelagency.service;
 
 import org.springframework.stereotype.Service;
+import sda.jre28.travelagency.model.CityType;
 import sda.jre28.travelagency.model.Tour;
 import sda.jre28.travelagency.repository.TourRepository;
 
@@ -39,5 +40,9 @@ public class TourService {
 
     public List<Tour> findAllTours() {
         return tourRepository.findAll();
+    }
+
+    public List<Tour> findAllByDestination (CityType cityType) {
+        return tourRepository.findAllByDestination(cityType);
     }
 }
