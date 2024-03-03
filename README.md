@@ -9,20 +9,17 @@ Main system functions
     Home
     Setting up the tour offer (administrator)
     Search for tours by given criteria
-    "Purchase" the trip - calculation of the final amount according to the number of people
-    (optional) Additional services: car rental, optional trips
-    (optional) Configuration of restrictions related to passport and visas
+    "Purchase" the tour - calculation of the final amount according to the number of people
 
 Technologies
 
-    Spring + Hibernate
-    (optional) Frontend in Angular/React/Thymeleaf
+    Spring + Hibernate + Angular
 
-Basic entities (Proposal)
+Basic Entities:
 Continent
 
     name
-
+    
 Country
 
     name
@@ -33,31 +30,16 @@ City
     name
     nationality (foreign key)
 
-Hotel
-
-    name
-    standard (number of stars)
-    description
-    designated city (foreign key)
-
-Airport
-
-    name
-    designated city (foreign key)
-
 Tour
 
-    where from (City, Airport)
-    where to (City, Hotel, Airport)
+    where to (City)
     departure date
     date of return
     number of days
-    type: (BB, HB, FB, AI - https://support.dnatatravel.com/Before-I-Book/BIB-Accommodation/1107041402/What-does-the-board-basis-mean.htm)
     price for an adult
     price for a child
     promoted
-    number of adult seats
-    number of places for children
+    number of seats
 
 Purchasing a tour
 
