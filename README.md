@@ -16,6 +16,7 @@ Technologies
     Spring + Hibernate + Angular
 
 Basic Entities:
+
 Continent
 
     name
