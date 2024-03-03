@@ -56,17 +56,16 @@ Home
     presentation of upcoming trips (divided into continents)
     presentation of upcoming trips (by country)
     presentation of recently purchased tours
-    (optional) presentation of tours with a reduced price (you need to add a mechanism for this)
-    (optional) presentation of tours with only 1 or 2 places left
+    presentation of tours with only 1 or 2 places left
 
 Home page - 2
 
     each of the lists below should present, at least, 3 entries + a link where the user can see more and be directed to search results according to a given criterion, e.g. clicking the Tenerife link should redirect us to the page with trips to Tenerife
     continent, country, city, hotel should be clickable and lead to the search results
     after clicking on a specific tour, detailed information is presented
-    (optional) under the tour, we present tours to the same place, but with a later date
-    (optional) under the tour we present tours to other hotels in this city
-    (optional) we present trips to other cities from this country under the tour
+    under the tour, we present tours to the same place, but with a later date
+    under the tour we present tours to other hotels in this city
+    we present trips to other cities from this country under the tour
 
 Configuring the tour offer
 
@@ -82,11 +81,9 @@ Search for trips based on given criteria
     additionally, the website has a form that allows for filtering and sorting results
 
     you can search for tours by (e.g.):
-        city (airport) of departure
         city (hotel) of stay
         departure date (optional range)
         date of return (optional range)
-        type (BB, HB, FB, AI)
         a hotel by it's standard
         amount of days
 
