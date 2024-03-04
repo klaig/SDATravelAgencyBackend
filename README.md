@@ -1,4 +1,6 @@
 https://trello.com/b/O8bukVgG/travel-agency
+https://grey-eclipse-230706.postman.co/workspace/JTK-Travel-agency~440b0d02-27a9-4e05-896e-f2873bb1d280/overview
+
 
 Service for a travel agency
 Brief description of the system
