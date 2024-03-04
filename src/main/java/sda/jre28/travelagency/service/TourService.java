@@ -5,6 +5,7 @@ import sda.jre28.travelagency.model.CityType;
 import sda.jre28.travelagency.model.Tour;
 import sda.jre28.travelagency.repository.TourRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -45,4 +46,24 @@ public class TourService {
     public List<Tour> findAllByDestination (CityType cityType) {
         return tourRepository.findAllByDestination(cityType);
     }
+
+    public List<Tour> findAllByDepartureDate (LocalDate departureDate) {
+        return tourRepository.findAllByDepartureDate(departureDate);
+    }
+
+    public List<Tour> findAllByDepartureDateBetween (LocalDate departureDate, LocalDate returnDate) {
+        return tourRepository.findAllByDepartureDateBetween(departureDate, returnDate);
+    }
+    public List<Tour> findAllByLength (Integer length) {
+        return tourRepository.findAllByLength(length);
+    }
+
+    public List<Tour> findAllByAdultPriceBetween (double minPrice, double maxPrice) {
+        return tourRepository.findAllByAdultPriceBetween(minPrice, maxPrice);
+    }
+
+    public List<Tour> findAllByPromoted (boolean promoted) {
+        return tourRepository.findAllByPromoted(promoted);
+    }
+
 }

@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import sda.jre28.travelagency.model.CityType;
 import sda.jre28.travelagency.model.Tour;
 import sda.jre28.travelagency.service.TourService;
+
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -42,5 +44,30 @@ public class TourController {
     @GetMapping(path = "/tours/city")
     public List<Tour> findAllByCity(@RequestParam("city") String cityType) {
         return tourService.findAllByDestination(CityType.valueOf(cityType.toUpperCase()));
+    }
+
+    @GetMapping(path = "/tours/date")
+    public List<Tour> findAllByDepartureDate(@RequestParam("date") String departureDate) {
+        return tourService.findAllByDepartureDate(LocalDate.parse(departureDate));
+    }
+
+    @GetMapping(path = "/tours/dates")
+    public List<Tour> findAllByDepartureDateBetween(@RequestParam("departureDate") String departureDate, @RequestParam("returnDate") String returnDate) {
+        return tourService.findAllByDepartureDateBetween(LocalDate.parse(departureDate), LocalDate.parse(returnDate));
+    }
+
+    @GetMapping(path = "/tours/length")
+    public List<Tour> findAllByLength(@RequestParam("days") Integer length) {
+        return tourService.findAllByLength(length);
+    }
+
+    @GetMapping(path = "/tours/price")
+    public List<Tour> findAllByAdultPriceBetween(@RequestParam("min") double minPrice, @RequestParam("max") double maxPrice) {
+        return tourService.findAllByAdultPriceBetween(minPrice, maxPrice);
+    }
+
+    @GetMapping(path = "/tours/promoted")
+    public List<Tour> findAllByPromoted(@RequestParam("promoted") boolean promoted) {
+        return tourService.findAllByPromoted(promoted);
     }
 }
