@@ -13,8 +13,9 @@ import java.util.List;
 @Repository
 public interface TourRepository extends JpaRepository<Tour, Long> {
     List<Tour> findAllByDestination(CityType cityType);
-//    List<Tour> findAllByCountry(CountryType countryType);
-//    List<Tour> findAllByContinent(ContinentType continentType);
+    //These two could go into a different repository or we just delete them
+    //List<Tour> findAllByCountry(CountryType countryType);
+    //List<Tour> findAllByContinent(ContinentType continentType);
     List<Tour> findAllByDepartureDate(LocalDate departureDate);
     List<Tour> findAllByDepartureDateBetween(LocalDate departureDate, LocalDate returnDate);
     List<Tour> findAllByLength(Integer length);
