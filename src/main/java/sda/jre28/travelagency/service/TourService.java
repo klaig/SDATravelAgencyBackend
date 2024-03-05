@@ -3,6 +3,7 @@ package sda.jre28.travelagency.service;
 import org.springframework.stereotype.Service;
 import sda.jre28.travelagency.model.CityType;
 import sda.jre28.travelagency.model.Tour;
+import sda.jre28.travelagency.repository.PurchaseDataRepository;
 import sda.jre28.travelagency.repository.TourRepository;
 
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ import java.util.List;
 public class TourService {
     private final TourRepository tourRepository;
 
-    public TourService(TourRepository tourRepository) {
+    public TourService(TourRepository tourRepository, PurchaseDataRepository purchaseDataRepository) {
         this.tourRepository = tourRepository;
     }
 
@@ -34,7 +35,9 @@ public class TourService {
             tourRepository.save(existingTour);
         }
     }
-
+    public Tour findById(Long tourId) {
+        return tourRepository.findById(tourId).orElse(null);
+    }
     public void deleteTour(Long Id) {
         tourRepository.deleteById(Id);
     }
@@ -45,10 +48,6 @@ public class TourService {
 
     public List<Tour> findAllByDestination (CityType cityType) {
         return tourRepository.findAllByDestination(cityType);
-    }
-
-    public List<Tour> findAllByDepartureDate (LocalDate departureDate) {
-        return tourRepository.findAllByDepartureDate(departureDate);
     }
 
     public List<Tour> findAllByDepartureDateBetween (LocalDate departureDate, LocalDate returnDate) {
