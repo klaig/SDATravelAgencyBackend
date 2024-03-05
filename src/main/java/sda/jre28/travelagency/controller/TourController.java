@@ -1,6 +1,7 @@
 package sda.jre28.travelagency.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sda.jre28.travelagency.model.CityType;
 import sda.jre28.travelagency.model.Tour;
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 
-@RestController
+@Controller
 @RequestMapping("/api/v1")
 public class TourController {
     private final TourService tourService;
