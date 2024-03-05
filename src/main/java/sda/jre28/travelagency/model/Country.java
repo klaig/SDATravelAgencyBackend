@@ -14,10 +14,5 @@ public class Country {
     private Long id;
     @Enumerated(EnumType.STRING)
     private CountryType countryType;
-//    @OneToMany(mappedBy = "country")
-//    private Set<City> cities;
-//    @ManyToOne
-//    @JoinColumn(name = "continentId", nullable = false)
-//    private Continent continent;
 
 }

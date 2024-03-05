@@ -36,6 +36,10 @@ public class TourController {
         return ResponseEntity.ok("Successfully deleted");
     }
 
+    @GetMapping(path = "/tour")
+    public ResponseEntity<Tour> findById(@RequestParam("tourId") Long tourId) {
+        return ResponseEntity.ok(tourService.findById(tourId));
+    }
     @GetMapping(path = "/tours")
     public List<Tour> findAllTours() {
         return tourService.findAllTours();
@@ -44,11 +48,6 @@ public class TourController {
     @GetMapping(path = "/tours/city")
     public List<Tour> findAllByCity(@RequestParam("city") String cityType) {
         return tourService.findAllByDestination(CityType.valueOf(cityType.toUpperCase()));
-    }
-
-    @GetMapping(path = "/tours/date")
-    public List<Tour> findAllByDepartureDate(@RequestParam("date") String departureDate) {
-        return tourService.findAllByDepartureDate(LocalDate.parse(departureDate));
     }
 
     @GetMapping(path = "/tours/dates")
