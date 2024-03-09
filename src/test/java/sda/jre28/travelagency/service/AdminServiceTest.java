@@ -6,11 +6,21 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sda.jre28.travelagency.repository.AdminRepository;
+import sda.jre28.travelagency.repository.PurchaseDataRepository;
+import sda.jre28.travelagency.repository.TourRepository;
+
 
 @ExtendWith(MockitoExtension.class)
 public class AdminServiceTest {
+
     @Mock
     AdminRepository adminRepository;
+
+    @Mock
+    TourRepository tourRepository;
+
+    @Mock
+    PurchaseDataRepository purchaseDataRepository;
 
     @InjectMocks
     private AdminService adminService;

@@ -1,5 +1,6 @@
 package sda.jre28.travelagency.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sda.jre28.travelagency.model.CityType;
 import sda.jre28.travelagency.model.PurchaseData;
@@ -16,6 +17,7 @@ public class TourService {
     private final TourRepository tourRepository;
     private final PurchaseDataRepository purchaseDataRepository;
 
+    @Autowired
     public TourService(TourRepository tourRepository, PurchaseDataRepository purchaseDataRepository) {
         this.tourRepository = tourRepository;
         this.purchaseDataRepository = purchaseDataRepository;

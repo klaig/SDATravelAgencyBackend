@@ -6,4 +6,5 @@ import sda.jre28.travelagency.model.Admin;
 
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Long> {
+
 }

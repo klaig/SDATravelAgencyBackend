@@ -1,5 +1,6 @@
 package sda.jre28.travelagency.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sda.jre28.travelagency.model.PurchaseData;
 import sda.jre28.travelagency.model.Tour;
@@ -16,6 +17,8 @@ public class AdminService {
     private final PurchaseDataRepository purchaseDataRepository;
     private final TourRepository tourRepository;
     private final UserRepository userRepository;
+
+    @Autowired
     public AdminService(PurchaseDataRepository purchaseDataRepository, TourRepository tourRepository, UserRepository userRepository) {
 
         this.purchaseDataRepository = purchaseDataRepository;

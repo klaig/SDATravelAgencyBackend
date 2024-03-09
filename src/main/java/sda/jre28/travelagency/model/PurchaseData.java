@@ -22,7 +22,6 @@ public class PurchaseData {
     private Integer numberOfChildren;
     private Long tourId;
     private Long userId;
-    @Value("false")
     private boolean isPurchased;
 
     public PurchaseData() {

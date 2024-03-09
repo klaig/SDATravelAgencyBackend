@@ -1,5 +1,6 @@
 package sda.jre28.travelagency.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sda.jre28.travelagency.model.PurchaseData;
@@ -14,6 +15,7 @@ import java.util.List;
 public class AdminController {
     private final AdminService adminService;
 
+    @Autowired
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
