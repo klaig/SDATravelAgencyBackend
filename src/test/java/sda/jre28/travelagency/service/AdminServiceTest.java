@@ -5,9 +5,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import sda.jre28.travelagency.model.Tour;
 import sda.jre28.travelagency.repository.AdminRepository;
 import sda.jre28.travelagency.repository.PurchaseDataRepository;
 import sda.jre28.travelagency.repository.TourRepository;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -28,6 +32,19 @@ public class AdminServiceTest {
     @Test
     public void testCreateTour_returnSuccessfully() {
 
+        // Mock data
+        int availableSeats = 25;
+
+        // Mock behaviour of adminRepository
+        Tour tour = new Tour();
+        tour.setAvailableSeats(availableSeats);
+        when(tourRepository.save(tour)).thenReturn(tour);
+
+        // Calling the method
+        Tour tourResult = adminService.createTour(tour);
+
+        // Assert
+        assertEquals(tourResult.getAvailableSeats(), availableSeats);
     }
 
     @Test
