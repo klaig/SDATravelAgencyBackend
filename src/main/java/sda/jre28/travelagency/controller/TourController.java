@@ -1,5 +1,6 @@
 package sda.jre28.travelagency.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sda.jre28.travelagency.model.CityType;
@@ -15,6 +16,7 @@ import java.util.List;
 public class TourController {
     private final TourService tourService;
 
+    @Autowired
     public TourController(TourService tourService) {
         this.tourService = tourService;
     }

@@ -1,9 +1,11 @@
 package sda.jre28.travelagency.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sda.jre28.travelagency.model.PurchaseData;
 import sda.jre28.travelagency.model.Tour;
+import sda.jre28.travelagency.model.User;
 import sda.jre28.travelagency.service.AdminService;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 public class AdminController {
     private final AdminService adminService;
 
+    @Autowired
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
@@ -47,5 +50,10 @@ public class AdminController {
     @GetMapping("/tour/userId")
     public List<PurchaseData> findAllByUserId(@RequestParam("userId") Long userId) {
         return adminService.findAllByUserId(userId);
+    }
+
+    @GetMapping("/tour/users")
+    public List<User> findAllUsersByTour(@RequestParam("userId") Long userId) {
+        return adminService.findAllUsersByTour(userId);
     }
 }

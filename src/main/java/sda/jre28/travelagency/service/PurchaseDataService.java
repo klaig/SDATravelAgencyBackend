@@ -1,6 +1,8 @@
 package sda.jre28.travelagency.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sda.jre28.travelagency.exceptions.NoAvailableSeatsException;
 import sda.jre28.travelagency.model.PurchaseData;
 import sda.jre28.travelagency.model.Tour;
 import sda.jre28.travelagency.repository.PurchaseDataRepository;
@@ -10,6 +12,8 @@ import sda.jre28.travelagency.repository.TourRepository;
 public class PurchaseDataService {
     private final PurchaseDataRepository purchaseDataRepository;
     private final TourRepository tourRepository;
+
+    @Autowired
     public PurchaseDataService(PurchaseDataRepository purchaseDataRepository, TourRepository tourRepository) {
         this.purchaseDataRepository = purchaseDataRepository;
         this.tourRepository = tourRepository;
@@ -32,19 +36,22 @@ public class PurchaseDataService {
         return 0;
     }
 
-    public void finalizePurchase(Long purchaseDataId) {
+    public void finalizePurchase(Long purchaseDataId) throws NoAvailableSeatsException {
         PurchaseData purchaseData = purchaseDataRepository.findById(purchaseDataId).orElse(null);
         if (purchaseData != null) {
-            Long tourId = purchaseData.getTourId();
             purchaseData.setPurchased(true);
-            Tour updatedTour = tourRepository.findById(tourId).orElse(null);
+            Tour updatedTour = tourRepository.findById(purchaseData.getTourId()).orElse(null);
             if (updatedTour != null) {
+                if (updatedTour.getAvailableSeats() < (purchaseData.getNumberOfAdults() + purchaseData.getNumberOfChildren())){
+                    throw new NoAvailableSeatsException("Not enough available seats!");
+                }
                 updatedTour.setAvailableSeats(updatedTour.getAvailableSeats() - purchaseData.getNumberOfAdults() - purchaseData.getNumberOfChildren());
                 tourRepository.save(updatedTour);
             }
             purchaseDataRepository.save(purchaseData);
         }
     }
+
 
 
 
