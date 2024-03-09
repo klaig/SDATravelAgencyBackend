@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import sda.jre28.travelagency.model.PurchaseData;
 import sda.jre28.travelagency.service.PurchaseDataService;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -26,21 +25,6 @@ public class PurchaseDataController {
     public ResponseEntity<Double> calculateTotal(@RequestParam("tourId") Long tourId, @RequestParam("purchaseDataId") Long purchaseDataId) {
         double total = purchaseDataService.calculateTotal(tourId, purchaseDataId);
         return ResponseEntity.ok(total);
-    }
-
-    @GetMapping("/tour/all")
-    public List<PurchaseData> findAllPurchaseDatas() {
-        return purchaseDataService.findAllPurchaseDatas();
-    }
-    //Find all tours that have been finalized or reserved
-    @GetMapping("/tour/bought")
-    public List<PurchaseData> findAllByIsPurchased(@RequestParam("isPurchased") boolean isPurchased) {
-        return purchaseDataService.findAllByIsPurchased(isPurchased);
-    }
-
-    @GetMapping("/tour/userId")
-    public List<PurchaseData> findAllByUserId(@RequestParam("userId") Long userId) {
-        return purchaseDataService.findAllByUserId(userId);
     }
 
     @GetMapping("/tour/purchase")

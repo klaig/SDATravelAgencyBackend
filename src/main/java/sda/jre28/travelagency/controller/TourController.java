@@ -19,22 +19,7 @@ public class TourController {
         this.tourService = tourService;
     }
     //http://localhost:8080/api/v1/tours
-    @PostMapping("/tour/create")
-    public ResponseEntity<Tour> createTour(@RequestBody Tour tour) {
-        Tour createdTour = tourService.createTour(tour);
-        return ResponseEntity.ok(createdTour);
-    }
-    @PutMapping(value = "/tours/{tourId}")
-    public ResponseEntity<Tour> updateTour(@PathVariable Long tourId, @RequestBody Tour tour) {
-        tourService.updateTour(tourId, tour);
-        return ResponseEntity.ok().build();
-    }
 
-    @DeleteMapping(path = "/tours/{tourId}")
-    public ResponseEntity<String> deleteTour(@PathVariable Long tourId) {
-        tourService.deleteTour(tourId);
-        return ResponseEntity.ok("Successfully deleted");
-    }
     //Find tour by tourId
     @GetMapping(path = "/tour")
     public ResponseEntity<Tour> findById(@RequestParam("tourId") Long tourId) {

@@ -6,9 +6,6 @@ import sda.jre28.travelagency.model.Tour;
 import sda.jre28.travelagency.repository.PurchaseDataRepository;
 import sda.jre28.travelagency.repository.TourRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class PurchaseDataService {
     private final PurchaseDataRepository purchaseDataRepository;
@@ -20,24 +17,6 @@ public class PurchaseDataService {
 
     public PurchaseData createPurchaseData(PurchaseData purchaseData) {
         return purchaseDataRepository.save(purchaseData);
-    }
-
-    public List<PurchaseData> findAllPurchaseDatas() {
-        return purchaseDataRepository.findAll();
-    }
-
-    public List<PurchaseData> findAllByIsPurchased(boolean isPurchased) {
-        return purchaseDataRepository.findAllByIsPurchased(isPurchased);
-    }
-    public List<PurchaseData> findAllByUserId(Long userId) {
-        List<PurchaseData> purchaseData = purchaseDataRepository.findAllByUserId(userId);
-        List<PurchaseData> purchaseDatas = new ArrayList<>();
-        for (PurchaseData data : purchaseData) {
-            if (data.isPurchased()) {
-                purchaseDatas.add(data);
-            }
-        }
-        return purchaseDatas;
     }
 
     public double calculateTotal(Long tourId, Long purchaseDataId) {
