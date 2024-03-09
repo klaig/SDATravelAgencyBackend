@@ -28,6 +28,16 @@ public class PurchaseDataController {
         return ResponseEntity.ok(total);
     }
 
+    @GetMapping("/tour/all")
+    public List<PurchaseData> findAllPurchaseDatas() {
+        return purchaseDataService.findAllPurchaseDatas();
+    }
+    //Find all tours that have been finalized or reserved
+    @GetMapping("/tour/bought")
+    public List<PurchaseData> findAllByIsPurchased(@RequestParam("isPurchased") boolean isPurchased) {
+        return purchaseDataService.findAllByIsPurchased(isPurchased);
+    }
+
     @GetMapping("/tour/userId")
     public List<PurchaseData> findAllByUserId(@RequestParam("userId") Long userId) {
         return purchaseDataService.findAllByUserId(userId);
@@ -38,4 +48,6 @@ public class PurchaseDataController {
         purchaseDataService.finalizePurchase(purchaseDataId);
         return ResponseEntity.ok().build();
     }
+
+
 }

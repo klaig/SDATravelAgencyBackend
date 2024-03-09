@@ -35,7 +35,7 @@ public class TourController {
         tourService.deleteTour(tourId);
         return ResponseEntity.ok("Successfully deleted");
     }
-
+    //Find tour by tourId
     @GetMapping(path = "/tour")
     public ResponseEntity<Tour> findById(@RequestParam("tourId") Long tourId) {
         return ResponseEntity.ok(tourService.findById(tourId));
@@ -68,5 +68,10 @@ public class TourController {
     @GetMapping(path = "/tours/promoted")
     public List<Tour> findAllByPromoted(@RequestParam("promoted") boolean promoted) {
         return tourService.findAllByPromoted(promoted);
+    }
+
+    @GetMapping("/mytours")
+    public List<Tour> findAllBoughtTours(@RequestParam("userId") Long userId) {
+        return tourService.findAllBoughtTours(userId);
     }
 }
