@@ -42,6 +42,7 @@ public class PurchaseDataService {
         PurchaseData purchaseData = purchaseDataRepository.findById(purchaseDataId).orElse(null);
         if (purchaseData != null) {
             Long tourId = purchaseData.getTourId();
+            purchaseData.setPurchased(true);
             Tour updatedTour = tourRepository.findById(tourId).orElse(null);
             if (updatedTour != null) {
                 updatedTour.setAvailableSeats(updatedTour.getAvailableSeats() - purchaseData.getNumberOfAdults() - purchaseData.getNumberOfChildren());

@@ -8,7 +8,7 @@ import sda.jre28.travelagency.service.PurchaseDataService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v2")
+@RequestMapping("/api/v1")
 public class PurchaseDataController {
     private final PurchaseDataService purchaseDataService;
 
@@ -16,7 +16,7 @@ public class PurchaseDataController {
         this.purchaseDataService = purchaseDataService;
     }
 
-    @PostMapping("/tour")
+    @PostMapping("/tour/purchase")
     public ResponseEntity<PurchaseData> createPurchasedData(@RequestBody PurchaseData purchaseData) {
         PurchaseData purchasedData = purchaseDataService.createPurchaseData(purchaseData);
         return ResponseEntity.ok(purchasedData);
@@ -34,7 +34,7 @@ public class PurchaseDataController {
     }
 
     @GetMapping("/tour/purchase")
-    public ResponseEntity finalizePurchase(@RequestParam("purchaseDataId") Long purchaseDataId) {
+    public ResponseEntity<PurchaseData> finalizePurchase(@RequestParam("purchaseDataId") Long purchaseDataId) {
         purchaseDataService.finalizePurchase(purchaseDataId);
         return ResponseEntity.ok().build();
     }
