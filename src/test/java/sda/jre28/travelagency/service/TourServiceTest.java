@@ -11,8 +11,11 @@ import sda.jre28.travelagency.repository.TourRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,7 +30,27 @@ public class TourServiceTest {
     @Test
     public void testFindById_returnSuccessfully() {
 
+        Tour tour = new Tour();
+        tour.setId(1L);
+        tour.setDestination(CityType.TORONTO);
+        tour.setLength(7);
+        tour.setAdultPrice(250);
+        tour.setChildPrice(150);
+        tour.setAvailableSeats(30);
+        tour.setPromoted(true);
+        tour.setDepartureDate(LocalDate.parse("2024-03-09"));
+        tour.setReturnDate(LocalDate.parse("2024-03-16"));
+
+        when(tourRepository.findById(1L)).thenReturn(Optional.of(tour));
+
+        Tour tourResult = tourService.findById(1L);
+
+        assertNotNull(tourResult);
+        assertEquals(tourResult.getLength(), 7);
+
+
     }
+
 
     @Test
     public void testFindAllTours_returnSuccessfully() {
@@ -79,6 +102,7 @@ public class TourServiceTest {
 
     @Test
     public void testFindAllByLength_returnSuccessfully() {
+
 
     }
 
