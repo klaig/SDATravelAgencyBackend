@@ -2,6 +2,7 @@ package sda.jre28.travelagency.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sda.jre28.travelagency.exceptions.NoAvailableSeatsException;
 import sda.jre28.travelagency.model.PurchaseData;
 import sda.jre28.travelagency.service.PurchaseDataService;
 
@@ -28,7 +29,7 @@ public class PurchaseDataController {
     }
 
     @GetMapping("/tour/purchase")
-    public ResponseEntity<PurchaseData> finalizePurchase(@RequestParam("purchaseDataId") Long purchaseDataId) {
+    public ResponseEntity<PurchaseData> finalizePurchase(@RequestParam("purchaseDataId") Long purchaseDataId) throws NoAvailableSeatsException {
         purchaseDataService.finalizePurchase(purchaseDataId);
         return ResponseEntity.ok().build();
     }

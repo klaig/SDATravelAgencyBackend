@@ -3,8 +3,10 @@ package sda.jre28.travelagency.service;
 import org.springframework.stereotype.Service;
 import sda.jre28.travelagency.model.PurchaseData;
 import sda.jre28.travelagency.model.Tour;
+import sda.jre28.travelagency.model.User;
 import sda.jre28.travelagency.repository.PurchaseDataRepository;
 import sda.jre28.travelagency.repository.TourRepository;
+import sda.jre28.travelagency.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +15,12 @@ import java.util.List;
 public class AdminService {
     private final PurchaseDataRepository purchaseDataRepository;
     private final TourRepository tourRepository;
-
-    public AdminService(PurchaseDataRepository purchaseDataRepository, TourRepository tourRepository) {
+    private final UserRepository userRepository;
+    public AdminService(PurchaseDataRepository purchaseDataRepository, TourRepository tourRepository, UserRepository userRepository) {
 
         this.purchaseDataRepository = purchaseDataRepository;
         this.tourRepository = tourRepository;
+        this.userRepository = userRepository;
     }
 
     public Tour createTour(Tour tour) { return tourRepository.save(tour);}
@@ -57,5 +60,17 @@ public class AdminService {
             }
         }
         return purchaseDatas;
+    }
+
+    public List<User> findAllUsersByTour(Long tourId) {
+        List<PurchaseData> boughtTours = purchaseDataRepository.findAllByIsPurchased(true);
+        List<User> users = new ArrayList<>();
+        for (PurchaseData data : boughtTours) {
+            if (data.getTourId().equals(tourId)) {
+                Long userId = data.getUserId();
+                users.add(userRepository.findById(userId).orElse(null));
+            }
+        }
+        return users;
     }
 }
