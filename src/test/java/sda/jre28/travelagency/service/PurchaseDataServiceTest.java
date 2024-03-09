@@ -43,7 +43,7 @@ public class PurchaseDataServiceTest {
         PurchaseData purchaseDataResult = purchaseDataService.createPurchaseData(purchaseData);
 
         // Assert
-        assertEquals(purchaseDataResult.getNumberOfAdults(), 3);
+        assertEquals(purchaseDataResult.getNumberOfAdults(), numberOfAdults);
     }
 
     @Test
