@@ -23,7 +23,10 @@ public class UserService {
         List<Tour> tours = new ArrayList<>();
         for (PurchaseData data : purchaseData) {
             Tour tour = tourRepository.findById(data.getTourId()).orElse(null);
-            tours.add(tour);
+            if (data.isPurchased()) {
+                tours.add(tour);
+            }
+
         }
         return tours;
     }

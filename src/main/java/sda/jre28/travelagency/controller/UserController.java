@@ -10,7 +10,7 @@ import sda.jre28.travelagency.service.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v3")
+@RequestMapping("/api/v1")
 public class UserController {
     private final UserService userService;
 

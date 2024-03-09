@@ -19,7 +19,7 @@ public class TourController {
         this.tourService = tourService;
     }
     //http://localhost:8080/api/v1/tours
-    @PostMapping("/tours")
+    @PostMapping("/tour/create")
     public ResponseEntity<Tour> createTour(@RequestBody Tour tour) {
         Tour createdTour = tourService.createTour(tour);
         return ResponseEntity.ok(createdTour);
