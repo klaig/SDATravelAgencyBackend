@@ -35,7 +35,7 @@ public class AdminServiceTest {
         // Mock data
         int availableSeats = 25;
 
-        // Mock behaviour of adminRepository
+        // Mock behaviour of tourRepository
         Tour tour = new Tour();
         tour.setAvailableSeats(availableSeats);
         when(tourRepository.save(tour)).thenReturn(tour);
