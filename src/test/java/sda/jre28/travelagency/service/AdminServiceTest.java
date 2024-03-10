@@ -56,14 +56,18 @@ public class AdminServiceTest {
     @Test
     public void testUpdateTour_returnSuccessfully() {
 
+        // Mock data
         double adultPrice = 100 ;
 
+        // Mock behaviour of tourRepository
         Tour tour = new Tour();
-        tour.setAdultPrice(adultPrice );
+        tour.setAdultPrice(adultPrice);
         when(tourRepository.save(tour)).thenReturn(tour);
 
+        // Calling the method
         Tour tourResult = adminService.createTour(tour);
 
+        // Assert
         assertEquals(tourResult.getAdultPrice(), adultPrice);
 
     }
@@ -71,14 +75,18 @@ public class AdminServiceTest {
     @Test
     public void testDeleteTour_returnSuccessfully() {
 
+        // Mock data
         CityType destination = CityType.ROME ;
 
+        // Mock behaviour of tourRepository
         Tour tour = new Tour();
         tour.setDestination (destination);
         when(tourRepository.save(tour)).thenReturn(tour);
 
+        // Calling the method
         Tour tourResult = adminService.createTour(tour);
 
+        // Assert
         assertEquals(tourResult.getDestination(), destination);
 
 
@@ -87,33 +95,34 @@ public class AdminServiceTest {
     @Test
     public void testFindAllPurchaseDatas_returnSuccessfully() {
 
+        // Mock data
         Long purchaseDataId = 1L;
+        int numberOfAdults = 5;
+        int numberOfChildren = 4;
+        Long tourId = 1L;
+        Long userId = 1L;
+        boolean isPurchased = true;
 
-        int numberOfAdults = 5 ;
-        int numberOfChildren = 4 ;
-        Long tourId = 1L ;
-        Long userId = 1L ;
-        boolean isPurchased = true ;
-
+        // Mock behaviour of purchaseDataRepository
         PurchaseData purchaseData = new PurchaseData();
-
         purchaseData.setPurchased(isPurchased);
         purchaseData.setNumberOfAdults(numberOfAdults);
         purchaseData.setNumberOfChildren(numberOfChildren);
         purchaseData.setTourId(tourId);
         purchaseData.setId(purchaseDataId);
         purchaseData.setUserId(userId);
-
         when(purchaseDataRepository.findAll()).thenReturn(List.of(purchaseData));
 
+        // Calling the method
         List<PurchaseData> listResult = adminService.findAllPurchaseDatas();
 
-        assertEquals(listResult.get(0).getId(),purchaseDataId) ;
-        assertEquals(listResult.get(0).getNumberOfAdults(),numberOfAdults)  ;
-        assertEquals(listResult.get(0).getTourId(),tourId)  ;
-        assertEquals(listResult.get(0).getUserId(),userId)  ;
-        assertEquals(listResult.get(0).getNumberOfChildren(),numberOfChildren)  ;
-        assertEquals(listResult.get(0).isPurchased(),isPurchased)  ;
+        // Assert
+        assertEquals(listResult.get(0).getId(), purchaseDataId);
+        assertEquals(listResult.get(0).getNumberOfAdults(), numberOfAdults) ;
+        assertEquals(listResult.get(0).getTourId(), tourId);
+        assertEquals(listResult.get(0).getUserId(), userId);
+        assertEquals(listResult.get(0).getNumberOfChildren(), numberOfChildren);
+        assertEquals(listResult.get(0).isPurchased(), isPurchased);
 
 
 
