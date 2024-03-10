@@ -47,7 +47,7 @@ public class AdminService {
     public void deleteTour(Long Id) {
         tourRepository.deleteById(Id);
     }
-    public List<PurchaseData> findAllPurchaseDatas() {
+    public List<PurchaseData> findAllPurchaseData() {
         return purchaseDataRepository.findAll();
     }
 
