@@ -34,19 +34,16 @@ public class PurchaseDataServiceTest {
     @Test
     public void testCreatePurchaseData_returnSuccessfully() {
 
-        // Mock data
-        int numberOfAdults = 3;
-
         // Mock behaviour of purchaseDataRepository
         PurchaseData purchaseData = createTestPurchaseData();
-        purchaseData.setNumberOfAdults(numberOfAdults);
         when(purchaseDataRepository.save(purchaseData)).thenReturn(purchaseData);
 
         // Calling the method
         PurchaseData purchaseDataResult = purchaseDataService.createPurchaseData(purchaseData);
 
         // Assert
-        assertEquals(purchaseDataResult.getNumberOfAdults(), numberOfAdults);
+        assertEquals(purchaseData.getId(), purchaseDataResult.getId());
+        assertEquals(purchaseData.getNumberOfAdults(), purchaseDataResult.getNumberOfAdults());
     }
 
     @Test
@@ -55,29 +52,23 @@ public class PurchaseDataServiceTest {
         // Mock data
         Long tourId = 1L;
         Long purchaseDataId = 1L;
-        double adultPrice = 100.0;
-        double childPrice = 50.0;
-        int numberOfAdults = 2;
-        int numberOfChildren = 1;
 
         // Mock behaviour of tourRepository
         Tour tour = createTestTour();
-        tour.setAdultPrice(adultPrice);
-        tour.setChildPrice(childPrice);
         when(tourRepository.findById(tourId)).thenReturn(Optional.of(tour));
 
         // Mock behaviour of purchaseDataRepository
         PurchaseData purchaseData = createTestPurchaseData();
-        purchaseData.setNumberOfAdults(numberOfAdults);
-        purchaseData.setNumberOfChildren(numberOfChildren);
         when(purchaseDataRepository.findById(purchaseDataId)).thenReturn(Optional.of(purchaseData));
 
         // Calling the method
         double total = purchaseDataService.calculateTotal(tourId, purchaseDataId);
 
         // Assert
-        double expectedTotal = (adultPrice * numberOfAdults) + (childPrice * numberOfChildren);
+        double expectedTotal = (tour.getAdultPrice() * purchaseData.getNumberOfAdults()) + (tour.getChildPrice() * purchaseData.getNumberOfChildren());
         assertEquals(expectedTotal, total);
+        assertEquals(tour.getId(), tourId);
+        assertEquals(purchaseData.getId(), purchaseDataId);
 
     }
 
@@ -88,10 +79,8 @@ public class PurchaseDataServiceTest {
         // Mock data
         Long purchaseDataId = 1L;
         Long tourId = 1L;
-        boolean isPurchased = true;
-        int availableSeats = 50;
-        int numberOfAdults = 5;
-        int numberOfChildren = 3;
+        boolean isPurchased = false;
+        int availableSeats = 30;
 
         // Mock behaviour of tourRepository
         Tour tour = createTestTour();
@@ -102,9 +91,6 @@ public class PurchaseDataServiceTest {
         // Mock behaviour of purchaseDataRepository
         PurchaseData purchaseData = createTestPurchaseData();
         purchaseData.setPurchased(isPurchased);
-        purchaseData.setTourId(tourId);
-        purchaseData.setNumberOfAdults(numberOfAdults);
-        purchaseData.setNumberOfChildren(numberOfChildren);
         when(purchaseDataRepository.findById(purchaseDataId)).thenReturn(Optional.of(purchaseData));
         when(purchaseDataRepository.save(purchaseData)).thenReturn(purchaseData);
 
@@ -112,9 +98,10 @@ public class PurchaseDataServiceTest {
         purchaseDataService.finalizePurchase(purchaseDataId);
 
         // Assert
-        int expectedAvailableSeats = availableSeats - numberOfAdults - numberOfChildren;
+        int expectedAvailableSeats = availableSeats - purchaseData.getNumberOfAdults() - purchaseData.getNumberOfChildren();
         int actualAvailableSeats = tour.getAvailableSeats();
         assertEquals(expectedAvailableSeats, actualAvailableSeats);
+        assertTrue(purchaseData.isPurchased());
     }
 
     @Test
@@ -124,8 +111,6 @@ public class PurchaseDataServiceTest {
         Long purchaseDataId = 1L;
         Long tourId = 1L;
         int availableSeats = 0;
-        int numberOfAdults = 1;
-        int numberOfChildren = 0;
 
         // Mock behaviour of tourRepository
         Tour tour = createTestTour();
@@ -134,9 +119,6 @@ public class PurchaseDataServiceTest {
 
         // Mock behaviour of purchaseDataRepository
         PurchaseData purchaseData = createTestPurchaseData();
-        purchaseData.setTourId(tourId);
-        purchaseData.setNumberOfAdults(numberOfAdults);
-        purchaseData.setNumberOfChildren(numberOfChildren);
         when(purchaseDataRepository.findById(purchaseDataId)).thenReturn(Optional.of(purchaseData));
 
         // Assert
