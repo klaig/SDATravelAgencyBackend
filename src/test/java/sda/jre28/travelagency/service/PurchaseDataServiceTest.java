@@ -7,10 +7,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import sda.jre28.travelagency.exceptions.NoAvailableSeatsException;
+import sda.jre28.travelagency.model.CityType;
 import sda.jre28.travelagency.model.PurchaseData;
 import sda.jre28.travelagency.model.Tour;
 import sda.jre28.travelagency.repository.PurchaseDataRepository;
 import sda.jre28.travelagency.repository.TourRepository;
+
+import java.time.LocalDate;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -35,7 +38,7 @@ public class PurchaseDataServiceTest {
         int numberOfAdults = 3;
 
         // Mock behaviour of purchaseDataRepository
-        PurchaseData purchaseData = new PurchaseData();
+        PurchaseData purchaseData = createTestPurchaseData();
         purchaseData.setNumberOfAdults(numberOfAdults);
         when(purchaseDataRepository.save(purchaseData)).thenReturn(purchaseData);
 
@@ -58,13 +61,13 @@ public class PurchaseDataServiceTest {
         int numberOfChildren = 1;
 
         // Mock behaviour of tourRepository
-        Tour tour = new Tour();
+        Tour tour = createTestTour();
         tour.setAdultPrice(adultPrice);
         tour.setChildPrice(childPrice);
         when(tourRepository.findById(tourId)).thenReturn(Optional.of(tour));
 
         // Mock behaviour of purchaseDataRepository
-        PurchaseData purchaseData = new PurchaseData();
+        PurchaseData purchaseData = createTestPurchaseData();
         purchaseData.setNumberOfAdults(numberOfAdults);
         purchaseData.setNumberOfChildren(numberOfChildren);
         when(purchaseDataRepository.findById(purchaseDataId)).thenReturn(Optional.of(purchaseData));
@@ -91,13 +94,13 @@ public class PurchaseDataServiceTest {
         int numberOfChildren = 3;
 
         // Mock behaviour of tourRepository
-        Tour tour = new Tour();
+        Tour tour = createTestTour();
         tour.setAvailableSeats(availableSeats);
         when(tourRepository.findById(tourId)).thenReturn(Optional.of(tour));
         when(tourRepository.save(tour)).thenReturn(tour);
 
         // Mock behaviour of purchaseDataRepository
-        PurchaseData purchaseData = new PurchaseData();
+        PurchaseData purchaseData = createTestPurchaseData();
         purchaseData.setPurchased(isPurchased);
         purchaseData.setTourId(tourId);
         purchaseData.setNumberOfAdults(numberOfAdults);
@@ -125,12 +128,12 @@ public class PurchaseDataServiceTest {
         int numberOfChildren = 0;
 
         // Mock behaviour of tourRepository
-        Tour tour = new Tour();
+        Tour tour = createTestTour();
         tour.setAvailableSeats(availableSeats);
         when(tourRepository.findById(tourId)).thenReturn(Optional.of(tour));
 
         // Mock behaviour of purchaseDataRepository
-        PurchaseData purchaseData = new PurchaseData();
+        PurchaseData purchaseData = createTestPurchaseData();
         purchaseData.setTourId(tourId);
         purchaseData.setNumberOfAdults(numberOfAdults);
         purchaseData.setNumberOfChildren(numberOfChildren);
@@ -138,5 +141,32 @@ public class PurchaseDataServiceTest {
 
         // Assert
         assertThrows(NoAvailableSeatsException.class, () -> purchaseDataService.finalizePurchase(purchaseDataId));
+    }
+
+    public Tour createTestTour() {
+        Tour tour = new Tour();
+        tour.setId(1L);
+        tour.setDestination(CityType.TORONTO);
+        tour.setAdultPrice(250);
+        tour.setChildPrice(150);
+        tour.setAvailableSeats(30);
+        tour.setPromoted(true);
+        tour.setLength(7);
+        tour.setDepartureDate(LocalDate.parse("2024-03-09"));
+        tour.setReturnDate(LocalDate.parse("2024-03-16"));
+
+        return tour;
+    }
+
+    public PurchaseData createTestPurchaseData() {
+        PurchaseData purchaseData = new PurchaseData();
+        purchaseData.setId(1L);
+        purchaseData.setUserId(1L);
+        purchaseData.setTourId(1L);
+        purchaseData.setNumberOfAdults(5);
+        purchaseData.setNumberOfChildren(3);
+        purchaseData.setPurchased(true);
+
+        return purchaseData;
     }
 }
