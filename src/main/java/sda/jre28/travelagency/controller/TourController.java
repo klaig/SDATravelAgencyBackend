@@ -38,8 +38,8 @@ public class TourController {
     }
 
     @GetMapping(path = "/tours/dates")
-    public List<Tour> findAllByDepartureDateBetween(@RequestParam("departureDate") String departureDate, @RequestParam("returnDate") String returnDate) {
-        return tourService.findAllByDepartureDateBetween(LocalDate.parse(departureDate), LocalDate.parse(returnDate));
+    public List<Tour> findAllByDepartureDateBetween(@RequestParam("minDate") String minDate, @RequestParam("maxDate") String maxDate) {
+        return tourService.findAllByDepartureDateBetween(LocalDate.parse(minDate), LocalDate.parse(maxDate));
     }
 
     @GetMapping(path = "/tours/length")
