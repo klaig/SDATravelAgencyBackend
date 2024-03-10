@@ -32,165 +32,167 @@ public class TourServiceTest {
 
     @Test
     public void testFindById_returnSuccessfully() {
-        Tour tour = new Tour();
-        tour.setId(1L);
-        tour.setDestination(CityType.TORONTO);
-        tour.setAdultPrice(250);
-        tour.setChildPrice(150);
-        tour.setAvailableSeats(30);
-        tour.setPromoted(true);
-        tour.setLength(7);
-        tour.setDepartureDate(LocalDate.parse("2024-03-09"));
-        tour.setReturnDate(LocalDate.parse("2024-03-16"));
+        // Mock data
+        Long tourId = 1L;
 
-        when(tourRepository.findById(1L)).thenReturn(Optional.of(tour));
+        // Mock behaviour of tourRepository
+        Tour tour = createTestTour();
+        when(tourRepository.findById(tourId)).thenReturn(Optional.of(tour));
 
-        Tour tourResult = tourService.findById(1L);
+        // Calling the method
+        Tour tourResult = tourService.findById(tourId);
 
-        assertEquals(tourResult.getLength(), 7);
+        // Assert
+        assertEquals(tourId, tourResult.getId());
+        assertEquals(tour.getDestination(), tourResult.getDestination());
+        assertEquals(tour.getAdultPrice(), tourResult.getAdultPrice());
+        assertEquals(tour.getChildPrice(), tourResult.getChildPrice());
+        assertEquals(tour.getAvailableSeats(), tourResult.getAvailableSeats());
+        assertEquals(tour.getLength(), tourResult.getLength());
+        assertEquals(tour.isPromoted(), tourResult.isPromoted());
+        assertEquals(tour.getDepartureDate(), tourResult.getDepartureDate());
+        assertEquals(tour.getReturnDate(), tourResult.getReturnDate());
     }
 
     @Test
     public void testFindAllTours_returnSuccessfully() {
-        Tour tour = new Tour();
-        tour.setId(1L);
-        tour.setDestination(CityType.TORONTO);
-        tour.setAdultPrice(250);
-        tour.setChildPrice(150);
-        tour.setAvailableSeats(30);
-        tour.setPromoted(true);
-        tour.setLength(7);
-        tour.setDepartureDate(LocalDate.parse("2024-03-09"));
-        tour.setReturnDate(LocalDate.parse("2024-03-16"));
 
-        Tour tour2 = new Tour();
-        tour2.setId(2L);
-        tour2.setDestination(CityType.MEXICO_CITY);
-        tour2.setAdultPrice(150);
-        tour2.setChildPrice(75);
-        tour2.setAvailableSeats(15);
-        tour2.setPromoted(false);
-        tour2.setLength(3);
-        tour2.setDepartureDate(LocalDate.parse("2024-03-10"));
-        tour2.setReturnDate(LocalDate.parse("2024-03-13"));
-
+        // Mock behaviours of tourRepository
+        Tour tour = createTestTour();
+        Tour tour2 = createTestTour();
         when(tourRepository.findAll()).thenReturn(List.of(tour, tour2));
 
+        // Calling the method
         List<Tour> tourResult = tourService.findAllTours();
 
+        // Assert
         assert tourResult.size() == 2;
-        assertEquals(tourResult.get(0).getId(), 1L);
+        assertEquals(tour.getId(), tourResult.get(0).getId());
+        assertEquals(tour2.getId(), tourResult.get(1).getId());
     }
 
     @Test
     public void testFindAllByDestination_returnSuccessfully() {
+
+        // Mock data
+        CityType destination = CityType.TORONTO;
+
+        // Mock behaviour of tourRepository
         Tour tour = new Tour();
-        tour.setDestination(CityType.TORONTO);
+        when(tourRepository.findAllByDestination(destination)).thenReturn(List.of(tour));
 
-        when(tourRepository.findAllByDestination(CityType.TORONTO)).thenReturn(List.of(tour));
+        // Calling the method
+        List<Tour> tourResult = tourService.findAllByDestination(destination);
 
-        List<Tour> tourResult = tourService.findAllByDestination(CityType.TORONTO);
-
-        assertEquals(tourResult.get(0).getDestination(), CityType.TORONTO);
+        // Assert
+        assert tourResult.size() == 1;
+        assertEquals(tour.getDestination(), tourResult.get(0).getDestination());
     }
 
     @Test
     public void testFindAllByDepartureDateBetween_returnSuccessfully() {
-        Tour tour = createTestTour();
+
+        // Mock data
+        LocalDate minDate = LocalDate.parse("2024-03-07");
+        LocalDate maxDate = LocalDate.parse("2024-03-12");
         LocalDate departureDate = LocalDate.parse("2024-03-09");
-        LocalDate returnDate = LocalDate.parse("2024-03-30");
+
+        // Mock behaviour of tourRepository
+        Tour tour = createTestTour();
         tour.setDepartureDate(departureDate);
+        when(tourRepository.findAllByDepartureDateBetween(minDate, maxDate)).thenReturn(List.of(tour));
 
-        Tour tour2 = createTestTour();
-        LocalDate departureDate2 = LocalDate.parse("2024-02-02");
-        tour2.setDepartureDate(departureDate2);
+        // Calling the method
+        List<Tour> tourResult = tourService.findAllByDepartureDateBetween(minDate, maxDate);
 
-        when(tourRepository.findAllByDepartureDateBetween(departureDate, returnDate)).thenReturn(List.of(tour, tour2));
-
-        List<Tour> tourResult = tourService.findAllByDepartureDateBetween(departureDate, returnDate);
-
-        assert tourResult.size() == 2;
-        assertEquals(tourResult.get(0).getDepartureDate(), departureDate);
-        assertEquals(tourResult.get(1).getDepartureDate(), departureDate2);
+        // Assert
+        assert tourResult.size() == 1;
+        assertEquals(tour.getDepartureDate(), tourResult.get(0).getDepartureDate());
     }
 
     @Test
     public void testFindAllByLength_returnSuccessfully() {
-        Tour tour = new Tour();
+
+        // Mock data
         int length = 7;
+
+        // Behaviour of tourRepository
+        Tour tour = new Tour();
         tour.setLength(length);
+        when(tourRepository.findAllByLength(length)).thenReturn(List.of(tour));
 
-        when(tourRepository.findAllByLength(7)).thenReturn(List.of(tour));
+        // Calling the method
+        List<Tour> tourResult = tourService.findAllByLength(length);
 
-        List<Tour> tourResult = tourService.findAllByLength(7);
-
-        assertEquals(tourResult.get(0).getLength(), length);
+        // Assert
+        assert tourResult.size() == 1;
+        assertEquals(tour.getLength(), tourResult.get(0).getLength());
     }
 
     @Test
     public void testFindAllByAdultPriceBetween_returnSuccessfully() {
-        Tour tour = new Tour();
+        // Mock data
         double minPrice = 600;
         double maxPrice = 1000;
         double adultPrice = 700;
 
+        // Mock behaviour of tourRepository
+        Tour tour = new Tour();
         tour.setAdultPrice(adultPrice);
-
         when(tourRepository.findAllByAdultPriceBetween(minPrice, maxPrice)).thenReturn(List.of(tour));
 
+        // Calling the method
         List<Tour> tourResult = tourService.findAllByAdultPriceBetween(minPrice, maxPrice);
 
-        assertEquals(tourResult.get(0).getAdultPrice(), adultPrice);
+        // Assert
+        assert tourResult.size() == 1;
+        assertEquals(tour.getAdultPrice(), tourResult.get(0).getAdultPrice());
     }
 
 
     @Test
     public void testFindAllByPromoted_returnSuccessfully () {
-        Tour tour = new Tour();
+        // Mock data
         boolean promoted = true;
+
+        // Mock behaviour of tourRepository
+        Tour tour = new Tour();
         tour.setPromoted(promoted);
+        when(tourRepository.findAllByPromoted(promoted)).thenReturn(List.of(tour));
 
-        when(tourRepository.findAllByPromoted(true)).thenReturn(List.of(tour));
+        // Calling the method
+        List<Tour> tourResult = tourService.findAllByPromoted(promoted);
 
-        List<Tour> tourResult = tourService.findAllByPromoted(true);
-
-        assertEquals(tourResult.get(0).isPromoted(), promoted);
+        // Assert
+        assert tourResult.size() == 1;
+        assertEquals(tour.isPromoted(), tourResult.get(0).isPromoted());
     }
 
     @Test
     public void testFindAllBoughtTours_returnSuccessfully () {
+
+        // Mock data
         Long userId = 1L;
         Long tourId = 1L;
-        Long tourId2 = 2L;
         boolean isPurchased = true;
-        boolean isPurchased2 = false;
 
+        // Mock behaviour of purchaseDataRepository
         PurchaseData purchaseData = new PurchaseData();
-        PurchaseData purchaseData2 = new PurchaseData();
         purchaseData.setUserId(userId);
         purchaseData.setTourId(tourId);
         purchaseData.setPurchased(isPurchased);
-        purchaseData2.setUserId(userId);
-        purchaseData2.setTourId(tourId2);
-        purchaseData2.setPurchased(isPurchased2);
         when(purchaseDataRepository.findAllByUserId(userId)).thenReturn(List.of(purchaseData));
 
+        // Mock behaviour of tourRepository
         Tour tour = createTestTour();
-        Tour tour2 = createTestTour();
-        tour2.setId(tourId2);
         when(tourRepository.findById(purchaseData.getTourId())).thenReturn(Optional.of(tour));
 
+        // Calling the method
         List<Tour> tourResult = tourService.findAllBoughtTours(userId);
 
+        // Assert
         assert tourResult.size() == 1;
-        assertEquals(tourResult.get(0).getId(), tourId);
-
-        assertEquals(purchaseData.getUserId(), userId);
-        assertEquals(purchaseData.getTourId(), tourId);
-        assertEquals(purchaseData.isPurchased(), isPurchased);
-        assertEquals(purchaseData2.getUserId(), userId);
-        assertEquals(purchaseData2.getTourId(), tourId2);
-        assertEquals(purchaseData2.isPurchased(), isPurchased2);
+        assertEquals(tour.getId(), tourResult.get(0).getId());
     }
 
     public Tour createTestTour() {

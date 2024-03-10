@@ -35,8 +35,8 @@ public class TourService {
         return tourRepository.findAllByDestination(cityType);
     }
 
-    public List<Tour> findAllByDepartureDateBetween (LocalDate departureDate, LocalDate returnDate) {
-        return tourRepository.findAllByDepartureDateBetween(departureDate, returnDate);
+    public List<Tour> findAllByDepartureDateBetween (LocalDate minDate, LocalDate maxDate) {
+        return tourRepository.findAllByDepartureDateBetween(minDate, maxDate);
     }
     public List<Tour> findAllByLength (Integer length) {
         return tourRepository.findAllByLength(length);
