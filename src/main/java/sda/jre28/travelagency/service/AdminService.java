@@ -47,7 +47,7 @@ public class AdminService {
     public void deleteTour(Long Id) {
         tourRepository.deleteById(Id);
     }
-    public List<PurchaseData> findAllPurchaseDatas() {
+    public List<PurchaseData> findAllPurchaseData() {
         return purchaseDataRepository.findAll();
     }
 
@@ -56,13 +56,13 @@ public class AdminService {
     }
     public List<PurchaseData> findAllByUserId(Long userId) {
         List<PurchaseData> purchaseData = purchaseDataRepository.findAllByUserId(userId);
-        List<PurchaseData> purchaseDatas = new ArrayList<>();
+        List<PurchaseData> purchaseData2 = new ArrayList<>();
         for (PurchaseData data : purchaseData) {
             if (data.isPurchased()) {
-                purchaseDatas.add(data);
+                purchaseData2.add(data);
             }
         }
-        return purchaseDatas;
+        return purchaseData2;
     }
 
     public List<User> findAllUsersByTour(Long tourId) {

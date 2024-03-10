@@ -38,8 +38,8 @@ public class AdminController {
     }
 
     @GetMapping("/tour/all")
-    public List<PurchaseData> findAllPurchaseDatas() {
-        return adminService.findAllPurchaseDatas();
+    public List<PurchaseData> findAllPurchaseData() {
+        return adminService.findAllPurchaseData();
     }
     //Find all tours that have been finalized or reserved
     @GetMapping("/tour/bought")
