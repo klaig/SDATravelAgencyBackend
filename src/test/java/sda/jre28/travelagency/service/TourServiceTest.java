@@ -56,7 +56,6 @@ public class TourServiceTest {
 
     @Test
     public void testFindAllTours_returnSuccessfully() {
-
         // Mock behaviours of tourRepository
         Tour tour = createTestTour();
         Tour tour2 = createTestTour();
@@ -73,7 +72,6 @@ public class TourServiceTest {
 
     @Test
     public void testFindAllByDestination_returnSuccessfully() {
-
         // Mock data
         CityType destination = CityType.TORONTO;
 
@@ -91,7 +89,6 @@ public class TourServiceTest {
 
     @Test
     public void testFindAllByDepartureDateBetween_returnSuccessfully() {
-
         // Mock data
         LocalDate minDate = LocalDate.parse("2024-03-07");
         LocalDate maxDate = LocalDate.parse("2024-03-12");
@@ -112,7 +109,6 @@ public class TourServiceTest {
 
     @Test
     public void testFindAllByLength_returnSuccessfully() {
-
         // Mock data
         int length = 7;
 
@@ -170,7 +166,6 @@ public class TourServiceTest {
 
     @Test
     public void testFindAllBoughtTours_returnSuccessfully () {
-
         // Mock data
         Long userId = 1L;
         Long tourId = 1L;
@@ -209,5 +204,4 @@ public class TourServiceTest {
 
         return tour;
     }
-
 }
