@@ -34,9 +34,8 @@ public class AdminController {
     @DeleteMapping(path = "/tours/{tourId}")
     public ResponseEntity<String> deleteTour(@PathVariable Long tourId) {
         adminService.deleteTour(tourId);
-        return ResponseEntity.ok("Successfully deleted");
+        return ResponseEntity.ok().build();
     }
-
     @GetMapping("/tour/all")
     public List<PurchaseData> findAllPurchaseData() {
         return adminService.findAllPurchaseData();
