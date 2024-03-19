@@ -15,7 +15,7 @@ public class SignUpDto {
     private String name;
 
     @NotBlank(message = "Username is mandatory")
-    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
+    @Size(min = 3, max = 20, message = "Username must be between 3 and 50 characters")
     private String username;
 
     @NotBlank(message = "Email is mandatory")
