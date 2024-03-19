@@ -52,7 +52,7 @@ public class AdminController {
     }
 
     @GetMapping("/tour/users")
-    public List<User> findAllUsersByTour(@RequestParam("userId") Long userId) {
-        return adminService.findAllUsersByTour(userId);
+    public List<User> findAllUsersByTour(@RequestParam("tourId") Long tourId) {
+        return adminService.findAllUsersByTour(tourId);
     }
 }

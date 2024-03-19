@@ -1,6 +1,7 @@
 package sda.jre28.travelagency.controller;
 
 import jakarta.validation.Valid;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,11 @@ import sda.jre28.travelagency.dto.LoginDto;
 import sda.jre28.travelagency.repository.RoleRepository;
 import sda.jre28.travelagency.repository.UserRepository;
 import sda.jre28.travelagency.dto.SignUpDto;
+import sda.jre28.travelagency.service.CustomUserDetailsService;
 import sda.jre28.travelagency.service.UserService;
+import org.slf4j.Logger;
+import sda.jre28.travelagency.util.JwtUtils;
+import sda.jre28.travelagency.dto.JwtResponse;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -31,13 +36,19 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private JwtUtils jwtUtils;
+    private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
+
     @PostMapping("/signin")
-    public ResponseEntity<String> authenticateUser(@RequestBody LoginDto loginDto){
+    public ResponseEntity<JwtResponse> authenticateUser(@RequestBody LoginDto loginDto){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getUsernameOrEmail(), loginDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<>("User signed-in successfully!.", HttpStatus.OK);
+        logger.debug("Authentication: {}", authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+        return ResponseEntity.ok(new JwtResponse(jwt));
     }
 
     @PostMapping("/signup")
