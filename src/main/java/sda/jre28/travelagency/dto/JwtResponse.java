@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-
+@Data
+@Getter
+@Setter
 public class JwtResponse {
     private String token;
     private String type = "Bearer";
@@ -14,12 +16,4 @@ public class JwtResponse {
         this.token = token;
     }
 
-    // Getters (and setters if necessary)
-    public String getToken() {
-        return token;
-    }
-
-    public String getType() {
-        return type;
-    }
 }
