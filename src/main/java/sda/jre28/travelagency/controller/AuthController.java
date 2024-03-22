@@ -9,6 +9,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import sda.jre28.travelagency.dto.MessageResponse;
 import sda.jre28.travelagency.exceptions.UserAlreadyExistsException;
 import sda.jre28.travelagency.dto.LoginDto;
+import sda.jre28.travelagency.model.Role;
+import sda.jre28.travelagency.model.User;
 import sda.jre28.travelagency.repository.RoleRepository;
 import sda.jre28.travelagency.repository.UserRepository;
 import sda.jre28.travelagency.dto.SignUpDto;
@@ -37,18 +41,35 @@ public class AuthController {
     private UserService userService;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private JwtUtils jwtUtils;
     private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
     @PostMapping("/signin")
     public ResponseEntity<JwtResponse> authenticateUser(@RequestBody LoginDto loginDto){
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginDto.getUsernameOrEmail(), loginDto.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                    loginDto.getUsernameOrEmail(), loginDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         logger.debug("Authentication: {}", authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
-        return ResponseEntity.ok(new JwtResponse(jwt));
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+        Long id = user.getId();
+        String email = user.getEmail();
+        String role = user.getRoles().stream()
+                .findFirst()
+                .map(Role::getName)
+                .orElse(null);
+        String name = user.getName();
+        return ResponseEntity.ok(new JwtResponse(jwt, "Bearer", id, username, role, email, name));
     }
 
     @PostMapping("/signup")
