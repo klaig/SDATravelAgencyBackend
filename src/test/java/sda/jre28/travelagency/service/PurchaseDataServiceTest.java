@@ -62,7 +62,7 @@ public class PurchaseDataServiceTest {
         when(purchaseDataRepository.findById(purchaseDataId)).thenReturn(Optional.of(purchaseData));
 
         // Calling the method
-        double total = purchaseDataService.calculateTotal(tourId, purchaseDataId);
+        double total = purchaseDataService.calculateTotal(purchaseDataId);
 
         // Assert
         double expectedTotal = (tour.getAdultPrice() * purchaseData.getNumberOfAdults()) + (tour.getChildPrice() * purchaseData.getNumberOfChildren());

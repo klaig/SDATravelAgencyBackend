@@ -4,15 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import sda.jre28.travelagency.exceptions.UserAlreadyExistsException;
+import sda.jre28.travelagency.model.PurchaseData;
 import sda.jre28.travelagency.model.Role;
 import sda.jre28.travelagency.model.User;
 import sda.jre28.travelagency.dto.SignUpDto;
+import sda.jre28.travelagency.repository.PurchaseDataRepository;
 import sda.jre28.travelagency.repository.RoleRepository;
 import sda.jre28.travelagency.repository.UserRepository;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -20,11 +20,14 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private final PurchaseDataRepository purchaseDataRepository;
+
     @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, PurchaseDataRepository purchaseDataRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.purchaseDataRepository = purchaseDataRepository;
     }
 
     public User createUser(String name, String email, String username, String rawPassword) throws UserAlreadyExistsException {

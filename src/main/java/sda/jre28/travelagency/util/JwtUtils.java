@@ -20,7 +20,7 @@ public class JwtUtils {
     // @Value("${JWT_SECRET}")                  // Then we can access the value from the environment
     // private String jwtSecret;
 
-    private int jwtExpirationMs = 300000; // 5 minutes
+    private int jwtExpirationMs = 30000000; // 300000 = 5 minutes
 
     public String generateJwtToken(Authentication authentication) {
         User principal = (User) authentication.getPrincipal();

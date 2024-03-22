@@ -130,27 +130,7 @@ public class AdminServiceTest {
         assertEquals(purchaseData2.isPurchased(), purchaseDataResult.get(1).isPurchased());
     }
 
-    @Test
-    public void testFindAllByUserId_returnSuccessfully() {
 
-        // Mock data
-        Long userId = 1L;
-
-        // Mock behaviour of purchaseDataRepository
-        PurchaseData purchaseData = createTestPurchaseData();
-        PurchaseData purchaseData2 = createTestPurchaseData();
-        purchaseData.setUserId(userId);
-        purchaseData2.setUserId(userId);
-        when(purchaseDataRepository.findAllByUserId(userId)).thenReturn(List.of(purchaseData, purchaseData2));
-
-        // Calling the method
-        List<PurchaseData> purchaseDataResult = adminService.findAllByUserId(userId);
-
-        // Assert
-        assert purchaseDataResult.size() == 2;
-        assertEquals(purchaseData.getUserId(), purchaseDataResult.get(0).getUserId());
-        assertEquals(purchaseData2.getUserId(), purchaseDataResult.get(1).getUserId());
-    }
 
     @Test
     public void testFindAllUsersByTour_returnSuccessfully() {
@@ -185,6 +165,27 @@ public class AdminServiceTest {
         assertEquals(user2.getId(), userResult.get(1).getId());
     }
 
+    @Test
+    public void testFindAllByUserId_returnSuccessfully() {
+
+        // Mock data
+        Long userId = 1L;
+
+        // Mock behaviour of purchaseDataRepository
+        PurchaseData purchaseData = createTestPurchaseData();
+        PurchaseData purchaseData2 = createTestPurchaseData();
+        purchaseData.setUserId(userId);
+        purchaseData2.setUserId(userId);
+        when(purchaseDataRepository.findAllByUserId(userId)).thenReturn(List.of(purchaseData, purchaseData2));
+
+        // Calling the method
+        List<PurchaseData> purchaseDataResult = adminService.findAllByUserId(userId);
+
+        // Assert
+        assert purchaseDataResult.size() == 2;
+        assertEquals(purchaseData.getUserId(), purchaseDataResult.get(0).getUserId());
+        assertEquals(purchaseData2.getUserId(), purchaseDataResult.get(1).getUserId());
+    }
     public Tour createTestTour() {
         Tour tour = new Tour();
         tour.setId(1L);

@@ -23,9 +23,9 @@ public class PurchaseDataService {
         return purchaseDataRepository.save(purchaseData);
     }
 
-    public double calculateTotal(Long tourId, Long purchaseDataId) {
-        Tour tour = tourRepository.findById(tourId).orElse(null);
+    public double calculateTotal(Long purchaseDataId) {
         PurchaseData purchaseData = purchaseDataRepository.findById(purchaseDataId).orElse(null);
+        Tour tour = tourRepository.findById(purchaseData.getId()).orElse(null);
         if (tour != null && purchaseData != null) {
             double adultPrice = tour.getAdultPrice();
             double childPrice = tour.getChildPrice();
