@@ -1,6 +1,10 @@
 package sda.jre28.travelagency.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sda.jre28.travelagency.model.CityType;
@@ -14,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class TourController {
+
     private final TourService tourService;
 
     @Autowired
@@ -61,4 +66,17 @@ public class TourController {
     public List<Tour> findAllBoughtTours(@RequestParam("userId") Long userId) {
         return tourService.findAllBoughtTours(userId);
     }
+
+    @GetMapping
+    public ResponseEntity<Page<Tour>> getAllTours(
+            @RequestParam(required = false) String destination,
+            @RequestParam(required = false) Boolean promoted,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate minDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate maxDate,
+            @RequestParam(required = false) Integer length,
+            @RequestParam(required = false) String sort, // sort parameter
+            Pageable pageable) {
+        return new ResponseEntity<>(tourService.getTours(destination, promoted, minDate, maxDate, length, sort, pageable), HttpStatus.OK);
+    }
+
 }
