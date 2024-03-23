@@ -49,7 +49,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                         .authorizeHttpRequests((authorize) -> authorize
                         // Public APIs
-                        .requestMatchers(HttpMethod.GET, "/api/v1/**").permitAll()
+                        .requestMatchers("/api/v1/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
 
                         // Admin-only APIs
