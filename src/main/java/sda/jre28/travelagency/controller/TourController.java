@@ -32,10 +32,10 @@ public class TourController {
     public ResponseEntity<Tour> findById(@RequestParam("tourId") Long tourId) {
         return ResponseEntity.ok(tourService.findById(tourId));
     }
-    @GetMapping(path = "/tours")
-    public List<Tour> findAllTours() {
-        return tourService.findAllTours();
-    }
+//    @GetMapping(path = "/tours")
+//    public List<Tour> findAllTours() {
+//        return tourService.findAllTours();
+//    }
 
     @GetMapping(path = "/tours/city")
     public List<Tour> findAllByCity(@RequestParam("city") String cityType) {
@@ -67,7 +67,7 @@ public class TourController {
         return tourService.findAllBoughtTours(userId);
     }
 
-    @GetMapping
+    @GetMapping("/tours")
     public ResponseEntity<Page<Tour>> getAllTours(
             @RequestParam(required = false) String destination,
             @RequestParam(required = false) Boolean promoted,
