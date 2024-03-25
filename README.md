@@ -1,111 +1,34 @@
-https://trello.com/b/O8bukVgG/travel-agency
-https://grey-eclipse-230706.postman.co/workspace/JTK-Travel-agency~440b0d02-27a9-4e05-896e-f2873bb1d280/overview
+# SDATravelAgencyBackend
 
+This repository is the backend part of SDA's final project, a dynamic travel agency system designed to streamline the browsing, "purchasing," and management of travel packages.
 
-Service for a travel agency
-Brief description of the system
+## Features
+- **Tour Management**: Admins can manage tour details.
+- **Robust Search**: Users can filter tours by various parameters.
+- **Secure Purchase Process**: Features a secure transaction system for booking tours.
+- **Data Validation**: Ensures data integrity.
 
-As part of the project, a system should be created that allows searching for trips according to given criteria and allow for their "purchase".
-Main system functions
+## Security
+- **JWT Authentication**: Implements JWT for secure authentication.
+- **Spring Security**: Used for authorization and access control.
 
-    Home
-    Setting up the tour offer (administrator)
-    Search for tours by given criteria
-    "Purchase" the tour - calculation of the final amount according to the number of people
+## Technologies
+- Spring
+- Hibernate
+- Angular
 
-Technologies
+## Usage
+### Authentication
+- **Sign In**: POST to `/api/auth/signin` with `LoginDto`.
+- **Sign Up**: POST to `/api/auth/signup`.
 
-    Spring + Hibernate + Angular
+### Tour Management (Admin)
+- **Create Tour**: POST to `/api/admin/tour/create`.
+- **Update/Delete Tour**: PUT/DELETE to `/api/admin/tours/{tourId}`.
 
-Basic Entities:
+### Tour Browsing and Booking
+- Use GET endpoints under `/api/v1` to search for tours.
+- Book tours via relevant booking endpoints.
 
-Continent
-
-    name
-    
-Country
-
-    name
-    continent membership (foreign key)
-
-City
-
-    name
-    nationality (foreign key)
-
-Tour
-
-    where to (City)
-    departure date
-    date of return
-    number of days
-    price for an adult
-    price for a child
-    promoted
-    number of seats
-
-Purchasing a tour
-
-    tour
-    data of participants
-    amount
-
-Functionalities
-Home
-
-    presentation of promoted trips
-    presentation of upcoming tours (globally)
-    presentation of upcoming trips (divided into continents)
-    presentation of upcoming trips (by country)
-    presentation of recently purchased tours
-    presentation of tours with only 1 or 2 places left
-
-Home page - 2
-
-    each of the lists below should present, at least, 3 entries + a link where the user can see more and be directed to search results according to a given criterion, e.g. clicking the Tenerife link should redirect us to the page with trips to Tenerife
-    continent, country, city, hotel should be clickable and lead to the search results
-    after clicking on a specific tour, detailed information is presented
-    under the tour, we present tours to the same place, but with a later date
-    under the tour we present tours to other hotels in this city
-    we present trips to other cities from this country under the tour
-
-Configuring the tour offer
-
-    the administrator (on a separate page) has the ability to add and edit tours
-    the form should allow you to enter all the parameters of the trip
-    you need to pre-configure the database of continents, countries, cities, airports and hotels
-    (optional) separate pages for managing continents, countries, cities, airports and hotels
-
-Search for trips based on given criteria
-
-    all clickable elements (continents, countries, cities, hotels are directed to the search results page
-
-    additionally, the website has a form that allows for filtering and sorting results
-
-    you can search for tours by (e.g.):
-        city (hotel) of stay
-        departure date (optional range)
-        date of return (optional range)
-        a hotel by it's standard
-        amount of days
-
-    you can sort by (e.g.):
-        price
-        departure date
-
-    (optional) As the amount of data grows, you can introduce pagination of the search results
-
-Purchasing a tour
-
-    after choosing a specific trip, it can be purchased
-    specify the number of adults and children
-    if there are enough vacancies, the tour will be "purchased"
-    the number of vacancies will be reduced
-    the amount for the trip will be calculated (based on the number of people)
-    purchased tours are displayed on the administration page / pages
-    (optional) you can group the above-mentioned tours and enter a simple search engine
-
-Additional requirements
-
-    it is necessary to ensure an aesthetic and functional way of presenting data
-    data downloaded from users should be pre-validated
+### Access Control
+- Public endpoints accessible without authentication. Others require a valid JWT token.
